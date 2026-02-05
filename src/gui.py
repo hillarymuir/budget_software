@@ -3,6 +3,8 @@ Docstring for budget_software.budget_software.gui:
 This file is for the heavy lifting generating the GUI with PyQt5.
 
 """
+# pylint: disable=import-error, undefined-variable
+# temporary disabling of the pylint errors running up against PyQt5
 
 
 import sys
