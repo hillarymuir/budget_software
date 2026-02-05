@@ -7,16 +7,20 @@ Main file for budget software.
 # temporary disabling of the pylint errors running up against PyQt5
 
 import sys
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-from gui import *
+
+from PyQt5.QtGui import QGuiApplication
+from PyQt5.QtQml import QQmlApplicationEngine
 
 def main():
-    app = QApplication(sys.argv)
-    ex = window()
-    ex.show()
-    sys.exit(app.exec_())
+    app = QGuiApplication(sys.argv)
+
+    engine = QQmlApplicationEngine()
+    engine.quit.connect(app.quit)
+    engine.load('main.qml')
+    if not engine.rootObjects():
+        sys.exit(-1)
+
+    sys.exit(app.exec())
 
 
 if __name__ == "__main__":
