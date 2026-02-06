@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 """
-Docstring for budget_software.src.test_edit_budget_targets
+Docstring for budget_software.src.test_budget_targets_class
 
-Tests for functions in edit_budget_targets.py.
+Tests for functions in budget_targets_class.py.
 
 """
 
