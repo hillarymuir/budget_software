@@ -16,9 +16,7 @@ TARGETS_DIR = PROJECT_ROOT / "private" / "targets"
 TARGETS_FILE = TARGETS_DIR / "curr_target.json"
 
 class BudgetTargets:
-    """
-    Class that holds budget target information.
-    """
+    """Class that holds budget target information."""
     def __init__(self, target_dict=None):
         if target_dict is None:
             self.target_dict = {}
