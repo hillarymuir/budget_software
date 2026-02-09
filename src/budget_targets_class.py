@@ -36,7 +36,9 @@ class BudgetTargets:
             json.dump(self.target_dict, f, separators=(",", ":"))
 
     def read_targets(self):
-        pass
+        with open("private/targets/curr_target.json", mode="r", encoding="utf-8") as f:
+            file_contents = json.loads(f.read())
+        return file_contents
 
     def edit_targets(self):
         pass
