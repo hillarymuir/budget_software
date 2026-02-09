@@ -7,6 +7,9 @@ Class that holds budget target information and its class functions.
 
 """
 
+import os
+import ast
+
 class BudgetTargets:
     """
     Class that holds budget target information.
@@ -17,8 +20,18 @@ class BudgetTargets:
         else:
             self.target_dict = target_dict
 
-# edit budget targets
+        # make sure there is a private/targets
+        os.makedirs(os.path.dirname("../private/targets"), exist_ok=True)
+        
+        # write the new class to file
+        with open("../private/targets/curr_target.txt", mode="w+", encoding="utf-8") as f:
+            f.write(str(self.target_dict))
 
-# read budget targets
+    def read_targets(self):
+        pass
 
-# create new category and set target
+    def edit_targets(self):
+        pass
+    
+    def add_category(self):
+        pass
