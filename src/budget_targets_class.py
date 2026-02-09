@@ -32,27 +32,28 @@ class BudgetTargets:
             print("Overwriting current budget targets...")
         
         # write the new class to file
-        with TARGETS_FILE.open(mode="w", encoding="utf-8") as f:
-            json.dump(self.target_dict, f, separators=(",", ":"))
+        self.save_targets()
 
-    def read_targets(self):
-        """Update self.target_dict with contents of curr_target.json"""
+    def get_targets(self):
+        """Update self.target_dict with contents of curr_target.json and return"""
         with open("private/targets/curr_target.json", mode="r", encoding="utf-8") as f:
             self.target_dict = json.loads(f.read())
         return self.target_dict
+    
+    def save_targets(self):
+        """Save self.target_dict to file"""
+        with TARGETS_FILE.open(mode="w", encoding="utf-8") as f:
+            json.dump(self.target_dict, f, separators=(",", ":"))
 
     def delete_target(self, to_delete_key):
         """Delete a target and resave"""
         del self.target_dict[to_delete_key]
-        with TARGETS_FILE.open(mode="w", encoding="utf-8") as f:
-            json.dump(self.target_dict, f, separators=(",", ":"))
+        self.save_targets()
 
-    def add_target(self, to_add_key, to_add_value):
-        """"""
-        pass
-
-    def revise_target(self, to_change_key, new_value):
-        pass
+    def add_or_change_target(self, to_add_key, to_add_value):
+        """Add or change a target and resave"""
+        self.target_dict[to_add_key] = to_add_value
+        self.save_targets()
     
     def add_category(self):
         pass
