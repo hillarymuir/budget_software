@@ -34,7 +34,6 @@ class BudgetTargets:
             print("Overwriting current budget targets...")
         
         # write the new class to file
-        # eventually: change to use a json file
         with TARGETS_FILE.open(mode="w", encoding="utf-8") as f:
             json.dump(self.target_dict, f, separators=(",", ":"))
 
