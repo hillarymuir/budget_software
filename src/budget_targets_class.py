@@ -50,10 +50,7 @@ class BudgetTargets:
         del self.target_dict[to_delete_key]
         self.save_targets()
 
-    def add_or_change_target(self, to_add_key, to_add_value):
+    def add_or_change_target(self, to_add_key, to_add_value=0.0):
         """Add or change a target and resave"""
         self.target_dict[to_add_key] = to_add_value
         self.save_targets()
-    
-    def add_category(self):
-        pass
