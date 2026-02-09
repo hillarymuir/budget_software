@@ -21,7 +21,7 @@ class TestFunctions(unittest.TestCase):
             file_content_str = f.read()
         
         self.assertIsInstance(bt_class_instance, bt_class.BudgetTargets)
-        self.assertEqual(bt_class_instance._target_dict, {})
+        self.assertEqual(bt_class_instance.get_targets(), {})
         self.assertEqual(file_content_str, "{}")
 
     def test_bt_class_creation_with_dict(self):
@@ -32,7 +32,7 @@ class TestFunctions(unittest.TestCase):
             file_content_str = f.read()
         
         self.assertIsInstance(bt_class_instance, bt_class.BudgetTargets)
-        self.assertEqual(bt_class_instance._target_dict, {"key":"value"})
+        self.assertEqual(bt_class_instance.get_targets(), {"key":"value"})
         self.assertEqual(file_content_str, "{\"key\":\"value\"}")
 
     def test_bt_class_get(self):
