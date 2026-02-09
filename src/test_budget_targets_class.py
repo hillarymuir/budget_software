@@ -39,6 +39,6 @@ class TestFunctions(unittest.TestCase):
         """Test read_targets function of BT class"""
         bt_class_instance = bt_class.BudgetTargets(target_dict={"key": "value"})
 
-        file_contents = bt_class_instance.read_targets()
+        file_contents_dict = bt_class_instance.read_targets()
         
-        self.assertEqual(file_contents, {"key": "value"})
+        self.assertEqual(file_contents_dict, {"key": "value"})

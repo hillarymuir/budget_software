@@ -37,8 +37,8 @@ class BudgetTargets:
 
     def read_targets(self):
         with open("private/targets/curr_target.json", mode="r", encoding="utf-8") as f:
-            file_contents = json.loads(f.read())
-        return file_contents
+            file_contents_dict = json.loads(f.read())
+        return file_contents_dict
 
     def edit_targets(self):
         pass
