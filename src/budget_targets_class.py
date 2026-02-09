@@ -20,8 +20,13 @@ class BudgetTargets:
         else:
             self.target_dict = target_dict
 
-        # make sure there is a private/targets
+        # make sure there is a ../private/targets
         os.makedirs(os.path.dirname("../private/targets"), exist_ok=True)
+
+        # if bt file exists, print notice that it is being overwritten 
+        # eventually: either prompt user to confirm overwrite or add support for multiple possible target sets
+        if os.path.isfile("../private/targets/curr_target.txt"):
+            print("Overwriting current budget targets...")
         
         # write the new class to file
         with open("../private/targets/curr_target.txt", mode="w+", encoding="utf-8") as f:
