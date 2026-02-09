@@ -21,7 +21,7 @@ class TestFunctions(unittest.TestCase):
             file_content_str = f.read()
         
         self.assertIsInstance(bt_class_instance, bt_class.BudgetTargets)
-        self.assertEqual(bt_class_instance.target_dict, {})
+        self.assertEqual(bt_class_instance._target_dict, {})
         self.assertEqual(file_content_str, "{}")
 
     def test_bt_class_creation_with_dict(self):
@@ -32,7 +32,7 @@ class TestFunctions(unittest.TestCase):
             file_content_str = f.read()
         
         self.assertIsInstance(bt_class_instance, bt_class.BudgetTargets)
-        self.assertEqual(bt_class_instance.target_dict, {"key":"value"})
+        self.assertEqual(bt_class_instance._target_dict, {"key":"value"})
         self.assertEqual(file_content_str, "{\"key\":\"value\"}")
 
     def test_bt_class_get(self):
@@ -57,7 +57,7 @@ class TestFunctions(unittest.TestCase):
         """Test delete_target function of BT class with a key that does not exist"""
         bt_class_instance = bt_class.BudgetTargets(target_dict={"key": "value"})
 
-        self.assertRaises(KeyError, bt_class_instance.delete_target("bad_key"))
+        self.assertRaises(KeyError, bt_class_instance.delete_target, "bad_key")
 
     def test_bt_class_add(self):
         """Test add_or_change_target function of BT class for adding a target"""
