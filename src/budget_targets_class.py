@@ -7,8 +7,13 @@ Class that holds budget target information and its class functions.
 
 """
 
-import os
-import ast
+import json
+from pathlib import Path
+
+# file paths hardcoded relative to project root
+PROJECT_ROOT = Path(__file__).resolve().parents[1] 
+TARGETS_DIR = PROJECT_ROOT / "private" / "targets"
+TARGETS_FILE = TARGETS_DIR / "curr_target.json"
 
 class BudgetTargets:
     """
@@ -21,16 +26,17 @@ class BudgetTargets:
             self.target_dict = target_dict
 
         # make sure there is a ../private/targets
-        os.makedirs(os.path.dirname("../private/targets"), exist_ok=True)
+        TARGETS_DIR.mkdir(parents=True, exist_ok=True)
 
         # if bt file exists, print notice that it is being overwritten 
         # eventually: either prompt user to confirm overwrite or add support for multiple possible target sets
-        if os.path.isfile("../private/targets/curr_target.txt"):
+        if TARGETS_FILE.exists():
             print("Overwriting current budget targets...")
         
         # write the new class to file
-        with open("../private/targets/curr_target.txt", mode="w+", encoding="utf-8") as f:
-            f.write(str(self.target_dict))
+        # eventually: change to use a json file
+        with TARGETS_FILE.open(mode="w", encoding="utf-8") as f:
+            json.dump(self.target_dict, f, separators=(",", ":"))
 
     def read_targets(self):
         pass

@@ -17,7 +17,7 @@ class TestFunctions(unittest.TestCase):
         """Test creation of BT class with empty dict"""
         bt_class_instance = bt_class.BudgetTargets()
 
-        with open("../private/targets/curr_target.txt", mode="r", encoding="utf-8") as f:
+        with open("private/targets/curr_target.json", mode="r", encoding="utf-8") as f:
             file_content_str = f.read()
         
         self.assertIsInstance(bt_class_instance, bt_class.BudgetTargets)
@@ -28,7 +28,7 @@ class TestFunctions(unittest.TestCase):
         """Test creation of BT class with specified dict"""
         bt_class_instance = bt_class.BudgetTargets(target_dict={"key": "value"})
 
-        with open("../private/targets/curr_target.txt", mode="r", encoding="utf-8") as f:
+        with open("private/targets/curr_target.json", mode="r", encoding="utf-8") as f:
             file_content_str = f.read()
         
         self.assertIsInstance(bt_class_instance, bt_class.BudgetTargets)
