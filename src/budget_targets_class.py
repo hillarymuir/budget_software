@@ -36,11 +36,22 @@ class BudgetTargets:
             json.dump(self.target_dict, f, separators=(",", ":"))
 
     def read_targets(self):
+        """Update self.target_dict with contents of curr_target.json"""
         with open("private/targets/curr_target.json", mode="r", encoding="utf-8") as f:
-            file_contents_dict = json.loads(f.read())
-        return file_contents_dict
+            self.target_dict = json.loads(f.read())
+        return self.target_dict
 
-    def edit_targets(self):
+    def delete_target(self, to_delete_key):
+        """Delete a target and resave"""
+        del self.target_dict[to_delete_key]
+        with TARGETS_FILE.open(mode="w", encoding="utf-8") as f:
+            json.dump(self.target_dict, f, separators=(",", ":"))
+
+    def add_target(self, to_add_key, to_add_value):
+        """"""
+        pass
+
+    def revise_target(self, to_change_key, new_value):
         pass
     
     def add_category(self):
