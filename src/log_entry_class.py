@@ -29,7 +29,7 @@ class LogEntry:
         except ValueError as e:
             raise ValueError("Error: invalid date") from e
 
-        self.date = date
+        self.date = date_
         self.source = source
         self.category = category
         self.dollar_amt = dollar_amt
