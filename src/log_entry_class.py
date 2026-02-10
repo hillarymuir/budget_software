@@ -28,11 +28,14 @@ class LogEntry:
             date(int(str(date_)[:3]), int(str(date_)[4:6]), int(str(date_)[6:]))
         except ValueError as e:
             raise ValueError("Error: invalid date") from e
-
+        
+        # set attributes
         self.date = date_
         self.source = source
         self.category = category
         self.dollar_amt = dollar_amt
+
+        # TODO: add self.parent once log class is done
 
     def __str__(self):
         return f"{self.date}, {self.source}, {self.category}, {self.dollar_amt}"
