@@ -23,7 +23,10 @@ def get_log(file):
         for row in log_reader:
             if len(row) != 4:
                 raise IndexError(f"Error: one or more rows has improper length such as {row}")
-            new_entry = le_class.LogEntry(row[0], row[1], row[2], row[3])
+            try:
+                new_entry = le_class.LogEntry(int(row[0]), row[1], row[2], float(row[3]))
+            except ValueError as e:
+                raise ValueError(f"Error: either {row[0]} cannot be cast as int or {row[3]} cannot be cast as float") from e
             log_entries.append(new_entry)
 
     return Log(log_entries=log_entries)
