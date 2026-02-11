@@ -15,6 +15,19 @@ import log_entry_class as le_class
 PROJECT_ROOT = Path(__file__).resolve().parents[1] 
 ENTRIES_DIR = PROJECT_ROOT / "private" / "entries"
 
+def get_log(file):
+    """Update self._log_entries with contents of a particular log file and return"""
+    log_entries = []
+    with open(file, mode="r", encoding="utf-8") as csvfile:
+        log_reader = csv.reader(csvfile)
+        for row in log_reader:
+            if len(row) != 4:
+                raise IndexError(f"Error: one or more rows has improper length such as {row}")
+            new_entry = le_class.LogEntry(row[0], row[1], row[2], row[3])
+            log_entries.append(new_entry)
+
+    return Log(log_entries=log_entries)
+
 class Log:
     """Class that holds monthly log of entries."""
     def __init__(self, log_entries=None):
@@ -57,18 +70,6 @@ class Log:
         """Get log entry list attribute"""
         return self._log_entries
     
-    def get_log(self):
-        """Update self._log_entires with contents of a particular log file and return"""
-        with open(self.entries_file, mode="r", encoding="utf-8") as csvfile:
-            log_reader = csv.reader(csvfile)
-            for row in log_reader:
-                if len(row) != 4:
-                    raise IndexError(f"Error: one or more rows has improper length such as {row}. Avoid using commas.")
-                new_entry = le_class.LogEntry(row[0], row[1], row[2], row[3])
-                self._log_entries.append(new_entry)
-
-        return self._log_entries
-        
     def save_log(self):
         """Save log entries to file"""
         with open(self.entries_file, "w", encoding="utf-8", newline="") as csvfile:
