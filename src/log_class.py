@@ -25,9 +25,9 @@ class Log:
             if all(isinstance(entry, le_class.LogEntry) for entry in log_entries):
                 # confirm that all log entries are for the same month
                 same_month = True
-                month_str = str(log_entries[0].date)[:4]
+                month_str = str(log_entries[0].date)[:6]
                 for entry in log_entries:
-                    if str(entry.date)[:4] != month_str:
+                    if str(entry.date)[:6] != month_str:
                         same_month = False
                 if same_month:
                     self._log_entries = log_entries
