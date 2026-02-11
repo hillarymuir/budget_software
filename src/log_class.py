@@ -22,6 +22,7 @@ class Log:
         # confirm that parameter is a list of log entry class instances or else empty
         if log_entries is None:
             self._log_entries = []
+            self._month_str = ""
         elif isinstance(log_entries, list):
             if all(isinstance(entry, le_class.LogEntry) for entry in log_entries):
                 # confirm that all log entries are for the same month
@@ -36,6 +37,7 @@ class Log:
                     raise ValueError("Error: every log entry in a log must be from the same month")
             else:
                 raise TypeError("Error: every log entry must be a log entry class instance")
+            
         else:
             raise TypeError("Error: Log argument must be a list (of log entry objects)")
 
@@ -73,5 +75,5 @@ class Log:
         with open(self.entries_file, "w", encoding="utf-8", newline="") as csvfile:
             log_writer = csv.writer(csvfile)
             for entry in self._log_entries:
-                log_writer.writerow(entry)
+                log_writer.writerow(f"{entry}")
 
