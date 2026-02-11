@@ -27,7 +27,7 @@ class BudgetTargets:
         TARGETS_DIR.mkdir(parents=True, exist_ok=True)
 
         # if bt file exists, print notice that it is being overwritten 
-        # eventually: either prompt user to confirm overwrite or add support for multiple possible target sets
+        # TODO: either prompt user to confirm overwrite or add support for multiple possible target sets
         if TARGETS_FILE.exists():
             print("Overwriting current budget targets...")
         

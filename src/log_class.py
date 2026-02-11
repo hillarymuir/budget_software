@@ -7,12 +7,13 @@ Class for monthly log object.
 
 """
 
+import csv
 from pathlib import Path
 import log_entry_class as le_class
 
 # file path hardcoded relative to project root
 PROJECT_ROOT = Path(__file__).resolve().parents[1] 
-TARGETS_DIR = PROJECT_ROOT / "private" / "entries"
+ENTRIES_DIR = PROJECT_ROOT / "private" / "entries"
 
 class Log:
     """Class that holds monthly log of entries."""
@@ -40,9 +41,24 @@ class Log:
 
         # handle creating/saving to file
         # make sure there is a ../private/entries
-        TARGETS_DIR.mkdir(parents=True, exist_ok=True)
+        ENTRIES_DIR.mkdir(parents=True, exist_ok=True)
+        self.entries_file = ENTRIES_DIR / f"{self._month_str}.csv"
+
+        # if that monthly log exists, print notice that it is being overwritten
+        # TODO: prompt user to confirm overwrite
+        if self.entries_file.exists():
+            print(f"Overwriting existing {self._month_str} log...")
+
+        self.save_log()
+
         
     def get_log_entry_list(self):
         """Get log entry list attribute"""
         return self._log_entries
         
+    def save_log(self):
+        """Save log entries to file"""
+        with open(self.entries_file, "w", encoding="utf-8", newline="") as csvfile:
+            log_writer = csv.writer(csvfile)
+            for entry in self._log_entries:
+                log_writer.writerow(entry)
