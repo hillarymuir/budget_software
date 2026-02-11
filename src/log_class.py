@@ -7,8 +7,8 @@ Class for monthly log object.
 
 """
 
-import log_entry_class as le_class
 from pathlib import Path
+import log_entry_class as le_class
 
 # file path hardcoded relative to project root
 PROJECT_ROOT = Path(__file__).resolve().parents[1] 
@@ -25,9 +25,9 @@ class Log:
             if all(isinstance(entry, le_class.LogEntry) for entry in log_entries):
                 # confirm that all log entries are for the same month
                 same_month = True
-                month_str = str(log_entries[0].date_)[:4]
+                month_str = str(log_entries[0].date)[:4]
                 for entry in log_entries:
-                    if str(entry.date_)[:4] != month_str:
+                    if str(entry.date)[:4] != month_str:
                         same_month = False
                 if same_month:
                     self._log_entries = log_entries
@@ -37,6 +37,8 @@ class Log:
                 raise TypeError("Error: every log entry must be a log entry class instance")
         else:
             raise TypeError("Error: Log argument must be a list (of log entry objects)")
+        
+        # TODO: add get() function for log_entries
         
         # TODO: handle figuring out what month this log is for
 
