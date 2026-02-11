@@ -38,7 +38,7 @@ class BudgetTargets:
 
     def get_targets(self):
         """Update self.target_dict with contents of curr_target.json and return"""
-        with open("private/targets/curr_target.json", mode="r", encoding="utf-8") as f:
+        with open(TARGETS_FILE, mode="r", encoding="utf-8") as f:
             self._target_dict = json.loads(f.read())
         return self._target_dict
     

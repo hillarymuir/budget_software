@@ -56,6 +56,17 @@ class Log:
         return self._log_entries
     
     # TODO: get log (from file)
+    def get_log(self):
+        """Update self._log_entires with contents of a particular log file and return"""
+        with open(self.entries_file, mode="r", encoding="utf-8") as csvfile:
+            log_reader = csv.reader(csvfile)
+            for row in log_reader:
+                if len(row) != 4:
+                    raise IndexError(f"Error: one or more rows has improper length such as {row}. Avoid using commas.")
+                new_entry = le_class.LogEntry(row[0], row[1], row[2], row[3])
+                self._log_entries.append(new_entry)
+
+        return self._log_entries
         
     def save_log(self):
         """Save log entries to file"""
