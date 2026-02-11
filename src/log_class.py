@@ -23,7 +23,16 @@ class Log:
             self._log_entries = []
         elif isinstance(log_entries, list):
             if all(isinstance(entry, le_class.LogEntry) for entry in log_entries):
-                self._log_entries = log_entries
+                # confirm that all log entries are for the same month
+                same_month = True
+                month_str = str(log_entries[0].date_)[:4]
+                for entry in log_entries:
+                    if str(entry.date_)[:4] != month_str:
+                        same_month = False
+                if same_month:
+                    self._log_entries = log_entries
+                else:
+                    raise ValueError("Error: every log entry in a log must be from the same month")
             else:
                 raise TypeError("Error: every log entry must be a log entry class instance")
         else:
