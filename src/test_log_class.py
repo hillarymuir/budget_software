@@ -73,3 +73,5 @@ class TestFunctions(unittest.TestCase):
         le_class_instance2 = le_class.LogEntry(20260201, "Source", "Category", 0.0)
         
         self.assertRaises(ValueError, log_class.Log, [le_class_instance1, le_class_instance2])
+
+    # TODO: test source with comma
