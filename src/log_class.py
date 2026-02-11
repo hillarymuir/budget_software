@@ -74,5 +74,4 @@ class Log:
         with open(self.entries_file, "w", encoding="utf-8", newline="") as csvfile:
             log_writer = csv.writer(csvfile)
             for entry in self._log_entries:
-                log_writer.writerow(f"{entry}")
-
+                log_writer.writerow(str(entry).split(","))
