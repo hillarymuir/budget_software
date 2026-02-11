@@ -22,14 +22,14 @@ class Log:
         # confirm that parameter is a list of log entry class instances or else empty
         if log_entries is None:
             self._log_entries = []
-            self._month_str = ""
+            self.name = ""
         elif isinstance(log_entries, list):
             if all(isinstance(entry, le_class.LogEntry) for entry in log_entries):
                 # confirm that all log entries are for the same month
                 same_month = True
-                self._month_str = str(log_entries[0].date)[:6]
+                self.name = str(log_entries[0].date)[:6]
                 for entry in log_entries:
-                    if str(entry.date)[:6] != self._month_str:
+                    if str(entry.date)[:6] != self.name:
                         same_month = False
                 if same_month:
                     self._log_entries = log_entries
@@ -44,12 +44,12 @@ class Log:
         # handle creating/saving to file
         # make sure there is a ../private/entries
         ENTRIES_DIR.mkdir(parents=True, exist_ok=True)
-        self.entries_file = ENTRIES_DIR / f"{self._month_str}.csv"
+        self.entries_file = ENTRIES_DIR / f"{self.name}.csv"
 
         # if that monthly log exists, print notice that it is being overwritten
         # TODO: prompt user to confirm overwrite
         if self.entries_file.exists():
-            print(f"Overwriting existing {self._month_str} log...")
+            print(f"Overwriting existing {self.name} log...")
 
         self.save_log()
 
@@ -57,7 +57,6 @@ class Log:
         """Get log entry list attribute"""
         return self._log_entries
     
-    # TODO: get log (from file)
     def get_log(self):
         """Update self._log_entires with contents of a particular log file and return"""
         with open(self.entries_file, mode="r", encoding="utf-8") as csvfile:

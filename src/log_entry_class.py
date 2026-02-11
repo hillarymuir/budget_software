@@ -20,6 +20,8 @@ class LogEntry:
             dollar_amt = float(dollar_amt)
         if not isinstance(dollar_amt, float):
             raise TypeError("Error: dollar amount must be a number")
+        
+        # TODO: do not allow commas in Source or Category
 
         # check for invalid dates
         if date_ < 20200000 or date_ > 22000000:
