@@ -38,5 +38,5 @@ class LogEntry:
         # TODO: add self.parent once log class is done
 
     def __str__(self):
-        return f"{self.date}, {self.source}, {self.category}, {self.dollar_amt}"
+        return f"{self.date},{self.source},{self.category},{self.dollar_amt}"
     
