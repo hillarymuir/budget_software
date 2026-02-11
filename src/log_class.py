@@ -51,10 +51,11 @@ class Log:
 
         self.save_log()
 
-        
     def get_log_entry_list(self):
         """Get log entry list attribute"""
         return self._log_entries
+    
+    # TODO: get log (from file)
         
     def save_log(self):
         """Save log entries to file"""
@@ -62,3 +63,4 @@ class Log:
             log_writer = csv.writer(csvfile)
             for entry in self._log_entries:
                 log_writer.writerow(entry)
+

@@ -23,6 +23,8 @@ class BudgetTargets:
         else:
             self._target_dict = target_dict
 
+        # TODO: add keys of target_dict to categories.csv
+
         # make sure there is a ../private/targets
         TARGETS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -57,3 +59,5 @@ class BudgetTargets:
         """Add or change a target and resave"""
         self._target_dict[to_add_key] = to_add_value
         self.save_targets()
+
+        # TODO: add key to category.csv

@@ -37,6 +37,8 @@ class LogEntry:
 
         # TODO: add self.parent once log class is done
 
+        # TODO: add new category if self.category is not in category.csv, and add that category to budget targets
+
     def __str__(self):
         return f"{self.date},{self.source},{self.category},{self.dollar_amt}"
     
