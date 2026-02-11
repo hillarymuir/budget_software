@@ -38,7 +38,9 @@ class Log:
         else:
             raise TypeError("Error: Log argument must be a list (of log entry objects)")
         
-        # TODO: add get() function for log_entries
+    def get_log_entry_list(self):
+        """Get log entry list attribute"""
+        return self._log_entries
         
         # TODO: handle figuring out what month this log is for
 
