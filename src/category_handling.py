@@ -70,6 +70,18 @@ def del_category(category):
 
 def edit_category(old_cat, new_cat):
     """Edit category in list"""
-    # TODO: automatically change all entries that use the old category
-    pass
+
+    # make sure file exists and category exists
+    if not CATS_FILE.exists():
+        raise FileNotFoundError(f"File not found to edit {old_cat}")
+    cat_list = load_categories()
+    if old_cat not in cat_list:
+        raise ValueError(f"{old_cat} not found in file, so cannot edit")
+    
+    # delete old_cat, add new_cat, and save
+    cat_list.remove(old_cat)
+    cat_list.append(new_cat)
+    save_categories(cat_list)
+
+    # TODO: automatically change all log entries that use the old category
 
