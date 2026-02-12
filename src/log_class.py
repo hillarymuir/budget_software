@@ -56,6 +56,10 @@ class Log:
             
         else:
             raise TypeError("Error: Log argument must be a list (of log entry objects)")
+        
+        # set parent
+        for entry in self._log_entries:
+            entry.parent = self
 
         # handle creating/saving to file
         # make sure there is a ../private/entries
@@ -79,3 +83,5 @@ class Log:
             log_writer = csv.writer(csvfile)
             for entry in self._log_entries:
                 log_writer.writerow(str(entry).split(","))
+
+# add entry and set parent, delete entry, edit entry (but don't allow changing month)

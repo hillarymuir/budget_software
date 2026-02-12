@@ -31,7 +31,7 @@ class TestFunctions(unittest.TestCase):
 
         self.assertEqual(file_content_str, "20260101,Source,Category,0.0\n")
 
-        # TODO: test get_log() using the new log created above
+        # test get_log() using the new log created above
         log_from_file = log_class.get_log(f"private/entries/{log_class_instance.name}.csv")
         self.assertIsInstance(log_from_file, log_class.Log)
         self.assertIsInstance(log_from_file.get_log_entry_list(), list)
@@ -74,4 +74,3 @@ class TestFunctions(unittest.TestCase):
         
         self.assertRaises(ValueError, log_class.Log, [le_class_instance1, le_class_instance2])
 
-    # TODO: test source with comma
