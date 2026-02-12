@@ -16,7 +16,8 @@ import log_entry_class as le_class
 import budget_targets_class as bt_class
 import category_handling as cats
 
-# TODO: change tests so running them won't overwrite actual user data
+# TODO: change tests so running them won't overwrite actual user data,
+# maybe by adding file to access as an arg instead of hard-coding
 
 # file paths hardcoded relative to project root
 PROJECT_ROOT = Path(__file__).resolve().parents[1] 
@@ -39,11 +40,32 @@ class TestFunctions(unittest.TestCase):
 
     def test_delete_category(self):
         """Test category deletion"""
-        pass
+
+        test_cat = "Test category"
+        cats.add_category(test_cat)
+
+        cats.del_category(test_cat)
+
+        with open(CATS_FILE, mode="r", encoding="utf-8") as csvfile:
+            cat_list = csv.reader(csvfile)[0]
+
+        self.assertNotIn(test_cat, cat_list)
 
     def test_edit_category(self):
         """Test category editing"""
-        pass
+
+        test_cat = "Test category (original)"
+        cats.add_category(test_cat)
+
+        revised_cat = "Test category (revised)"
+
+        cats.edit_category(test_cat, revised_cat)
+
+        with open(CATS_FILE, mode="r", encoding="utf-8") as csvfile:
+            cat_list = csv.reader(csvfile)[0]
+        
+        self.assertNotIn(test_cat, cat_list)
+        self.assertIn(revised_cat, cat_list)
 
     def test_budget_targets_category_creation(self):
         """Test budget targets class's automatic category addition"""
