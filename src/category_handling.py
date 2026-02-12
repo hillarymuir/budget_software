@@ -24,13 +24,16 @@ def add_category(category):
         with open(CATS_FILE, "w", encoding="utf-8") as csvfile:
             csvfile.write("")
 
+    # get current list
     cat_list = []
 
     with open(CATS_FILE, mode="r", encoding="utf-8") as csvfile:
         cat_reader = csv.reader(csvfile)
         for row in cat_reader:
-            print(row)
             cat_list.extend(row)
+
+    # add to list
+    cat_list.append(category)
 
     save_categories(cat_list)
 
