@@ -33,8 +33,12 @@ class TestFunctions(unittest.TestCase):
         test_cat = "Test category, with comma"
         cats.add_category(test_cat)
 
+        cat_list = []
+
         with open(CATS_FILE, mode="r", encoding="utf-8") as csvfile:
-            cat_list = csv.reader(csvfile)[0]
+            cat_reader = csv.reader(csvfile)
+            for row in cat_reader:
+                cat_list.extend(row)
         
         self.assertIn(test_cat, cat_list)
 
@@ -46,8 +50,12 @@ class TestFunctions(unittest.TestCase):
 
         cats.del_category(test_cat)
 
+        cat_list = []
+
         with open(CATS_FILE, mode="r", encoding="utf-8") as csvfile:
-            cat_list = csv.reader(csvfile)[0]
+            cat_reader = csv.reader(csvfile)
+            for row in cat_reader:
+                cat_list.extend(row)
 
         self.assertNotIn(test_cat, cat_list)
 
@@ -61,8 +69,12 @@ class TestFunctions(unittest.TestCase):
 
         cats.edit_category(test_cat, revised_cat)
 
+        cat_list = []
+
         with open(CATS_FILE, mode="r", encoding="utf-8") as csvfile:
-            cat_list = csv.reader(csvfile)[0]
+            cat_reader = csv.reader(csvfile)
+            for row in cat_reader:
+                cat_list.extend(row)
         
         self.assertNotIn(test_cat, cat_list)
         self.assertIn(revised_cat, cat_list)
