@@ -47,14 +47,26 @@ def add_category(category):
             csvfile.write("")
 
     cat_list = load_categories()
+    # TODO: make sure category doesn't already exist
     cat_list.append(category)
 
     save_categories(cat_list)
 
 def del_category(category):
     """Delete category in list"""
-    # TODO: prompt user instead of just deleting all entries with that category
-    pass
+
+    # make sure file exists and category exists
+    if not CATS_FILE.exists():
+        raise FileNotFoundError(f"File not found to delete {category}")
+    cat_list = load_categories()
+    if category not in cat_list:
+        raise ValueError(f"{category} not found in file, so cannot delete")
+    
+    # delete category and save
+    cat_list.remove(category)
+    save_categories(cat_list)
+
+    # TODO: prompt user whether they want to delete all entries with that category, and if so, do it
 
 def edit_category(old_cat, new_cat):
     """Edit category in list"""
