@@ -10,6 +10,8 @@ Tests for functions in budget_targets_class.py.
 import unittest
 import budget_targets_class as bt_class
 
+# TODO: change tests so running them won't overwrite actual user data
+
 class TestFunctions(unittest.TestCase):
     """Test budget_targets_class and its functions"""
 

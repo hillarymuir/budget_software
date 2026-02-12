@@ -16,7 +16,7 @@ import log_entry_class as le_class
 import budget_targets_class as bt_class
 import category_handling as cats
 
-
+# TODO: change tests so running them won't overwrite actual user data
 
 # file paths hardcoded relative to project root
 PROJECT_ROOT = Path(__file__).resolve().parents[1] 

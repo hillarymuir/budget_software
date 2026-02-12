@@ -11,6 +11,8 @@ import unittest
 import log_class
 import log_entry_class as le_class
 
+# TODO: change tests so running them won't modify actual user data
+
 class TestFunctions(unittest.TestCase):
     """Test log class and its functions"""
 
