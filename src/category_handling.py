@@ -47,7 +47,9 @@ def add_category(category):
             csvfile.write("")
 
     cat_list = load_categories()
-    # TODO: make sure category doesn't already exist
+    if category in cat_list:
+        raise ValueError(f"{category} already exists")
+
     cat_list.append(category)
 
     save_categories(cat_list)
