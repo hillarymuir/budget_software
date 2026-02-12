@@ -80,3 +80,4 @@ class TestFunctions(unittest.TestCase):
         file_contents_dict = bt_class_instance.get_targets()
         
         self.assertEqual(file_contents_dict, {"key": "new_value"})
+        

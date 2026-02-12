@@ -63,7 +63,7 @@ def del_category(category):
     cat_list = load_categories()
     if category not in cat_list:
         raise ValueError(f"{category} not found in file, so cannot delete")
-    
+
     # delete category and save
     cat_list.remove(category)
     save_categories(cat_list)
@@ -79,11 +79,10 @@ def edit_category(old_cat, new_cat):
     cat_list = load_categories()
     if old_cat not in cat_list:
         raise ValueError(f"{old_cat} not found in file, so cannot edit")
-    
+
     # delete old_cat, add new_cat, and save
     cat_list.remove(old_cat)
     cat_list.append(new_cat)
     save_categories(cat_list)
 
     # TODO: automatically change all log entries that use the old category
-
