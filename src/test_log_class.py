@@ -74,3 +74,10 @@ class TestFunctions(unittest.TestCase):
         
         self.assertRaises(ValueError, log_class.Log, [le_class_instance1, le_class_instance2])
 
+    def test_log_entry_parent(self):
+        """Test LE parent-setting"""
+
+        le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
+        log_class_instance = log_class.Log([le_class_instance])
+
+        self.assertIs(le_class_instance.parent, log_class_instance)
