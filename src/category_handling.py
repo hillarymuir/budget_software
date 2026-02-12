@@ -15,6 +15,23 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CATS_DIR = PROJECT_ROOT / "private" / "targets"
 CATS_FILE = CATS_DIR / "categories.csv"
 
+def load_categories():
+    """Load categories from file"""
+    cat_list = []
+
+    with open(CATS_FILE, mode="r", encoding="utf-8") as csvfile:
+        cat_reader = csv.reader(csvfile)
+        for row in cat_reader:
+            cat_list.extend(row)
+
+    return cat_list
+
+def save_categories(cat_list):
+    """Save categories to file"""
+    with open(CATS_FILE, "w", encoding="utf-8", newline="") as csvfile:
+        cats_writer = csv.writer(csvfile)
+        cats_writer.writerow(cat_list)
+
 def add_category(category):
     """Add category to list"""
 
@@ -24,15 +41,7 @@ def add_category(category):
         with open(CATS_FILE, "w", encoding="utf-8") as csvfile:
             csvfile.write("")
 
-    # get current list
-    cat_list = []
-
-    with open(CATS_FILE, mode="r", encoding="utf-8") as csvfile:
-        cat_reader = csv.reader(csvfile)
-        for row in cat_reader:
-            cat_list.extend(row)
-
-    # add to list
+    cat_list = load_categories()
     cat_list.append(category)
 
     save_categories(cat_list)
@@ -47,8 +56,3 @@ def edit_category(old_cat, new_cat):
     # TODO: automatically change all entries that use the old category
     pass
 
-def save_categories(cat_list):
-    """Save categories to file"""
-    with open(CATS_FILE, "w", encoding="utf-8", newline="") as csvfile:
-        cats_writer = csv.writer(csvfile)
-        cats_writer.writerow(cat_list)
