@@ -6,3 +6,82 @@ Docstring for budget_software.src.log_class
 Class for monthly log object.
 
 """
+
+import csv
+from pathlib import Path
+import log_entry_class as le_class
+
+# file path hardcoded relative to project root
+PROJECT_ROOT = Path(__file__).resolve().parents[1] 
+ENTRIES_DIR = PROJECT_ROOT / "private" / "entries"
+
+def get_log(file):
+    """Update self._log_entries with contents of a particular log file and return"""
+    log_entries = []
+    with open(file, mode="r", encoding="utf-8") as csvfile:
+        log_reader = csv.reader(csvfile)
+        for row in log_reader:
+            if len(row) != 4:
+                raise IndexError(f"Error: one or more rows has improper length such as {row}")
+            try:
+                new_entry = le_class.LogEntry(int(row[0]), row[1], row[2], float(row[3]))
+            except ValueError as e:
+                raise ValueError(f"Error: either {row[0]} cannot be cast as int or {row[3]} cannot be cast as float") from e
+            log_entries.append(new_entry)
+
+    return Log(log_entries=log_entries)
+
+class Log:
+    """Class that holds monthly log of entries."""
+    def __init__(self, log_entries=None):
+
+        # confirm that parameter is a list of log entry class instances or else empty
+        if log_entries is None:
+            self._log_entries = []
+            self.name = ""
+        elif isinstance(log_entries, list):
+            if all(isinstance(entry, le_class.LogEntry) for entry in log_entries):
+                # confirm that all log entries are for the same month
+                same_month = True
+                self.name = str(log_entries[0].date)[:6]
+                for entry in log_entries:
+                    if str(entry.date)[:6] != self.name:
+                        same_month = False
+                if same_month:
+                    self._log_entries = log_entries
+                else:
+                    raise ValueError("Error: every log entry in a log must be from the same month")
+            else:
+                raise TypeError("Error: every log entry must be a log entry class instance")
+            
+        else:
+            raise TypeError("Error: Log argument must be a list (of log entry objects)")
+        
+        # set parent
+        for entry in self._log_entries:
+            entry.parent = self
+
+        # handle creating/saving to file
+        # make sure there is a ../private/entries
+        ENTRIES_DIR.mkdir(parents=True, exist_ok=True)
+        self.entries_file = ENTRIES_DIR / f"{self.name}.csv"
+
+        # if that monthly log exists, print notice that it is being overwritten
+        # TODO: prompt user to confirm overwrite
+        if self.entries_file.exists():
+            print(f"Overwriting existing {self.name} log...")
+
+        self.save_log()
+
+    def get_log_entry_list(self):
+        """Get log entry list attribute"""
+        return self._log_entries
+    
+    def save_log(self):
+        """Save log entries to file"""
+        with open(self.entries_file, "w", encoding="utf-8", newline="") as csvfile:
+            log_writer = csv.writer(csvfile)
+            for entry in self._log_entries:
+                log_writer.writerow(str(entry).split(","))
+
+# add entry and set parent, delete entry, edit entry (but don't allow changing month)

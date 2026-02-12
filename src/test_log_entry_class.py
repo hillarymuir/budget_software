@@ -19,7 +19,7 @@ class TestFunctions(unittest.TestCase):
         le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
 
         self.assertIsInstance(le_class_instance, le_class.LogEntry)
-        self.assertEqual(str(le_class_instance), "20260101, Source, Category, 0.0")
+        self.assertEqual(str(le_class_instance), "20260101,Source,Category,0.0")
 
     def test_log_entry_date_str(self):
         """Test creation of LE class with a string for a date"""
@@ -57,7 +57,7 @@ class TestFunctions(unittest.TestCase):
         le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 1)
 
         self.assertIsInstance(le_class_instance, le_class.LogEntry)
-        self.assertEqual(str(le_class_instance), "20260101, Source, Category, 1.0")
+        self.assertEqual(str(le_class_instance), "20260101,Source,Category,1.0")
 
     def test_log_entry_date_bad_dollar_amt(self):
         """Test creation of LE class with bad dollar amount"""

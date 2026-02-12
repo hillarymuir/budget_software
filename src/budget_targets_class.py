@@ -23,11 +23,13 @@ class BudgetTargets:
         else:
             self._target_dict = target_dict
 
+        # TODO: add keys of target_dict to categories.csv
+
         # make sure there is a ../private/targets
         TARGETS_DIR.mkdir(parents=True, exist_ok=True)
 
         # if bt file exists, print notice that it is being overwritten 
-        # eventually: either prompt user to confirm overwrite or add support for multiple possible target sets
+        # TODO: either prompt user to confirm overwrite or add support for multiple possible target sets
         if TARGETS_FILE.exists():
             print("Overwriting current budget targets...")
         
@@ -36,7 +38,7 @@ class BudgetTargets:
 
     def get_targets(self):
         """Update self.target_dict with contents of curr_target.json and return"""
-        with open("private/targets/curr_target.json", mode="r", encoding="utf-8") as f:
+        with open(TARGETS_FILE, mode="r", encoding="utf-8") as f:
             self._target_dict = json.loads(f.read())
         return self._target_dict
     
@@ -57,3 +59,5 @@ class BudgetTargets:
         """Add or change a target and resave"""
         self._target_dict[to_add_key] = to_add_value
         self.save_targets()
+
+        # TODO: add key to category.csv
