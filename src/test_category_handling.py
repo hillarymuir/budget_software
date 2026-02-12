@@ -37,6 +37,10 @@ class TestFunctions(unittest.TestCase):
         
         self.assertIn(test_cat, cat_list)
 
+        cats.clear_categories()
+        cat_list = cats.load_categories()
+        self.assertEqual(cat_list, [])
+
     def test_delete_category(self):
         """Test category deletion"""
 
@@ -48,6 +52,10 @@ class TestFunctions(unittest.TestCase):
         cat_list = cats.load_categories()
 
         self.assertNotIn(test_cat, cat_list)
+
+        cats.clear_categories()
+        cat_list = cats.load_categories()
+        self.assertEqual(cat_list, [])
 
     def test_edit_category(self):
         """Test category editing"""
@@ -63,6 +71,10 @@ class TestFunctions(unittest.TestCase):
         
         self.assertNotIn(test_cat, cat_list)
         self.assertIn(revised_cat, cat_list)
+
+        cats.clear_categories()
+        cat_list = cats.load_categories()
+        self.assertEqual(cat_list, [])
 
     def test_budget_targets_category_creation(self):
         """Test budget targets class's automatic category addition"""

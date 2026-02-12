@@ -32,6 +32,11 @@ def save_categories(cat_list):
         cats_writer = csv.writer(csvfile)
         cats_writer.writerow(cat_list)
 
+def clear_categories():
+    """Clear categories to help testing"""
+    with open(CATS_FILE, "w", encoding="utf-8", newline="") as f:
+        f.write("")
+
 def add_category(category):
     """Add category to list"""
 
