@@ -12,8 +12,8 @@ from pathlib import Path
 
 # file paths hardcoded relative to project root
 PROJECT_ROOT = Path(__file__).resolve().parents[1] 
-TARGETS_DIR = PROJECT_ROOT / "private" / "targets"
-TARGETS_FILE = TARGETS_DIR / "categories.csv"
+CATS_DIR = PROJECT_ROOT / "private" / "targets"
+CATS_FILE = CATS_DIR / "categories.csv"
 
 def add_category(category):
     """Add category to list"""

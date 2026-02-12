@@ -8,17 +8,34 @@ Tests for functions in category_handling.py.
 """
 
 import unittest
+import csv
+from pathlib import Path
+
 import log_class
 import log_entry_class as le_class
 import budget_targets_class as bt_class
-import category_handling
+import category_handling as cats
+
+
+
+# file paths hardcoded relative to project root
+PROJECT_ROOT = Path(__file__).resolve().parents[1] 
+CATS_DIR = PROJECT_ROOT / "private" / "targets"
+CATS_FILE = CATS_DIR / "categories.csv"
 
 class TestFunctions(unittest.TestCase):
     """Tests for functions in category_handling.py."""
 
     def test_add_category(self):
         """Test category addition"""
-        pass
+
+        test_cat = "Test category, with comma"
+        cats.add_category(test_cat)
+
+        with open(CATS_FILE, mode="r", encoding="utf-8") as csvfile:
+            cat_list = csv.reader(csvfile)[0]
+        
+        self.assertIn(test_cat, cat_list)
 
     def test_delete_category(self):
         """Test category deletion"""
