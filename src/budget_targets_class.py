@@ -10,6 +10,8 @@ Class that holds budget target information and its class functions.
 import json
 from pathlib import Path
 
+import category_handling as cats
+
 # file paths hardcoded relative to project root
 PROJECT_ROOT = Path(__file__).resolve().parents[1] 
 TARGETS_DIR = PROJECT_ROOT / "private" / "targets"
@@ -23,7 +25,9 @@ class BudgetTargets:
         else:
             self._target_dict = target_dict
 
-        # TODO: add keys of target_dict to categories.csv
+        # add keys to category list
+        for key in self._target_dict:
+            cats.add_category(key)
 
         # make sure there is a ../private/targets
         TARGETS_DIR.mkdir(parents=True, exist_ok=True)
@@ -60,4 +64,7 @@ class BudgetTargets:
         self._target_dict[to_add_key] = to_add_value
         self.save_targets()
 
-        # TODO: add key to category.csv
+        # add key of added target to categories
+        cat_list = cats.load_categories()
+        if to_add_key not in cat_list:
+            cats.add_category(to_add_key)

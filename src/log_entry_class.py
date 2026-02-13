@@ -9,6 +9,8 @@ Class for monthly log object.
 
 from datetime import date
 
+import category_handling as cats
+
 class LogEntry:
     """Class for a budget log entry."""
     def __init__(self, date_, source, category, dollar_amt):
@@ -37,7 +39,11 @@ class LogEntry:
 
         self.parent = None
 
-        # TODO: add new category if self.category is not in category.csv, and add that category to budget targets
+        cat_list = cats.load_categories()
+        if self.category not in cat_list:
+            cats.add_category(self.category)
+
+        # TODO: add new category to budget targets with default target of 0
 
     def __str__(self):
         return f"{self.date},{self.source},{self.category},{self.dollar_amt}"

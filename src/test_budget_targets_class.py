@@ -10,6 +10,8 @@ Tests for functions in budget_targets_class.py.
 import unittest
 import budget_targets_class as bt_class
 
+# TODO: change tests so running them won't overwrite actual user data
+
 class TestFunctions(unittest.TestCase):
     """Test budget_targets_class and its functions"""
 
@@ -78,3 +80,4 @@ class TestFunctions(unittest.TestCase):
         file_contents_dict = bt_class_instance.get_targets()
         
         self.assertEqual(file_contents_dict, {"key": "new_value"})
+        
