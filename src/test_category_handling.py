@@ -19,7 +19,7 @@ import category_handling as cats
 # maybe by adding file to access as an arg instead of hard-coding
 
 # file paths hardcoded relative to project root
-PROJECT_ROOT = Path(__file__).resolve().parents[1] 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 CATS_DIR = PROJECT_ROOT / "private" / "targets"
 CATS_FILE = CATS_DIR / "categories.csv"
 
@@ -98,7 +98,7 @@ class TestFunctions(unittest.TestCase):
         cat_list = cats.load_categories()
         self.assertEqual(cat_list, [])
 
-    def test_delete_category_no_file(self): # TODO
+    def test_delete_category_no_file(self):
         """Test category deletion when there is no categories.csv"""
 
         test_cat = "Test category"
@@ -106,7 +106,7 @@ class TestFunctions(unittest.TestCase):
 
         self.assertRaises(FileNotFoundError, cats.del_category, test_cat)
 
-    def test_delete_category_not_in_file(self): # TODO
+    def test_delete_category_not_in_file(self):
         """Test category deletion when category isn't in file"""
 
         test_cat = "Test category"
