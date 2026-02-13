@@ -48,7 +48,7 @@ def add_category(category):
 
     cat_list = load_categories()
     if category in cat_list:
-        raise ValueError(f"{category} already exists")
+        print(f"{category} not added; already exists")
 
     cat_list.append(category)
 
