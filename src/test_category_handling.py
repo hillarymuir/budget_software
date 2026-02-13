@@ -34,7 +34,7 @@ class TestFunctions(unittest.TestCase):
         cats.add_category(test_cat)
 
         cat_list = cats.load_categories()
-        
+
         self.assertIn(test_cat, cat_list)
 
         cats.clear_categories()
@@ -68,7 +68,7 @@ class TestFunctions(unittest.TestCase):
         cats.edit_category(test_cat, revised_cat)
 
         cat_list = cats.load_categories()
-        
+
         self.assertNotIn(test_cat, cat_list)
         self.assertIn(revised_cat, cat_list)
 
@@ -78,8 +78,23 @@ class TestFunctions(unittest.TestCase):
 
     def test_budget_targets_category_creation(self):
         """Test budget targets class's automatic category addition"""
-        pass
+        bt_class_instance = bt_class.BudgetTargets(target_dict={"key": "value"})
+
+        cat_list = cats.load_categories()
+        self.assertIn("key", cat_list)
+
+        cats.clear_categories()
+        cat_list = cats.load_categories()
+        self.assertEqual(cat_list, [])
 
     def test_log_class_category_creation(self):
         """Test log class's automatic category addition"""
-        pass
+        le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
+        log_class_instance = log_class.Log([le_class_instance])
+
+        cat_list = cats.load_categories()
+        self.assertIn("Category", cat_list)
+
+        cats.clear_categories()
+        cat_list = cats.load_categories()
+        self.assertEqual(cat_list, [])
