@@ -8,7 +8,6 @@ Tests for functions in category_handling.py.
 """
 
 import unittest
-import csv
 from pathlib import Path
 
 import log_class
@@ -78,7 +77,7 @@ class TestFunctions(unittest.TestCase):
 
     def test_budget_targets_category_creation(self):
         """Test budget targets class's automatic category addition"""
-        bt_class_instance = bt_class.BudgetTargets(target_dict={"key": "value"})
+        bt_class.BudgetTargets(target_dict={"key": "value"})
 
         cat_list = cats.load_categories()
         self.assertIn("key", cat_list)
@@ -90,7 +89,7 @@ class TestFunctions(unittest.TestCase):
     def test_log_class_category_creation(self):
         """Test log class's automatic category addition"""
         le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
-        log_class_instance = log_class.Log([le_class_instance])
+        log_class.Log([le_class_instance])
 
         cat_list = cats.load_categories()
         self.assertIn("Category", cat_list)
@@ -98,3 +97,19 @@ class TestFunctions(unittest.TestCase):
         cats.clear_categories()
         cat_list = cats.load_categories()
         self.assertEqual(cat_list, [])
+
+    def test_delete_category_no_file(self): # TODO
+        """Test category deletion when there is no categories.csv"""
+
+        test_cat = "Test category"
+        CATS_FILE.unlink()
+
+        self.assertRaises(FileNotFoundError, cats.del_category, test_cat)
+
+    def test_delete_category_not_in_file(self): # TODO
+        """Test category deletion when category isn't in file"""
+
+        test_cat = "Test category"
+        cats.clear_categories()
+
+        self.assertRaises(ValueError, cats.del_category, test_cat)
