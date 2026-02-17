@@ -21,3 +21,10 @@ class Spreadsheet:
         self.money_remaining = starting_money
         for entry in self.log.get_log_entry_list():
             self.money_remaining += entry.dollar_amt
+
+        # sum each category
+        self.cat_dict = {}
+        for cat in self.targets.get_targets():
+            self.cat_dict[cat] = 0.0
+        for entry in self.log.get_log_entry_list():
+            self.cat_dict[entry.category] += entry.dollar_amt
