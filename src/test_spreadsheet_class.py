@@ -22,7 +22,7 @@ class TestFunctions(unittest.TestCase):
         le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 1.11)
         log_class_instance = log_class.Log([le_class_instance])
 
-        spreadsheet = sheet_class.Spreadsheet(log_class_instance, bt_class_instance)
+        spreadsheet = sheet_class.Spreadsheet(log_class_instance, bt_class_instance, 0.0)
         
         self.assertIsInstance(spreadsheet, sheet_class.Spreadsheet)
         self.assertIs(spreadsheet.log, log_class_instance)
