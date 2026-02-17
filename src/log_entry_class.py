@@ -48,4 +48,4 @@ class LogEntry:
     def __str__(self):
         return f"{self.date},{self.source},{self.category},{self.dollar_amt}"
     
-    # edit entry
+    # TODO edit entry

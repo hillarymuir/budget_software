@@ -18,7 +18,9 @@ class Spreadsheet:
         self.month = int(self.log.name)
 
         # calculate money remaining
-        self.money_remaining = 0.0 # TODO: sum budget entries
+        self.money_remaining = 0.0
+        for entry in self.log.get_log_entry_list():
+            self.money_remaining += entry.dollar_amt
 
     def update_spreadsheet(self):
         """Updates targets and totals based on log."""
