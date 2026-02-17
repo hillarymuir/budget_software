@@ -28,4 +28,5 @@ class TestFunctions(unittest.TestCase):
         self.assertIs(spreadsheet.log, log_class_instance)
         self.assertIs(spreadsheet.targets, bt_class_instance)
         self.assertEqual(spreadsheet.month, int(log_class_instance.name))
-        self.assertEqual(1.11, spreadsheet.money_remaining)
+        self.assertEqual(spreadsheet.money_remaining, 1.11)
+        self.assertEqual(spreadsheet.cat_dict, {"Category": 1.11})
