@@ -12,29 +12,31 @@ from pathlib import Path
 
 import category_handling as cats
 
-# file paths hardcoded relative to project root
+# directory path hardcoded relative to project root
 PROJECT_ROOT = Path(__file__).resolve().parents[1] 
-TARGETS_DIR = PROJECT_ROOT / "private" / "targets"
-TARGETS_FILE = TARGETS_DIR / "curr_target.json"
+TEST_DIR = PROJECT_ROOT / "test"
 
 class BudgetTargets:
     """Class that holds budget target information."""
-    def __init__(self, target_dict=None):
+    def __init__(self, dir_path, target_dict=None):
         if target_dict is None:
             self._target_dict = {}
         else:
             self._target_dict = target_dict
 
+        self.targets_dir = dir_path / "private" / "targets"
+        self.targets_file = self.targets_dir / "curr_target.json"
+
         # add keys to category list
         for key in self._target_dict:
-            cats.add_category(key)
+            cats.add_category(TEST_DIR, key)
 
         # make sure there is a ../private/targets
-        TARGETS_DIR.mkdir(parents=True, exist_ok=True)
+        self.targets_dir.mkdir(parents=True, exist_ok=True)
 
         # if bt file exists, print notice that it is being overwritten 
         # TODO: either prompt user to confirm overwrite or add support for multiple possible target sets
-        if TARGETS_FILE.exists():
+        if self.targets_file.exists():
             print("Overwriting current budget targets...")
         
         # write the new class to file
@@ -42,13 +44,13 @@ class BudgetTargets:
 
     def get_targets(self):
         """Update self.target_dict with contents of curr_target.json and return"""
-        with open(TARGETS_FILE, mode="r", encoding="utf-8") as f:
+        with open(self.targets_file, mode="r", encoding="utf-8") as f:
             self._target_dict = json.loads(f.read())
         return self._target_dict
     
     def save_targets(self):
         """Save self.target_dict to file"""
-        with TARGETS_FILE.open(mode="w", encoding="utf-8") as f:
+        with self.targets_file.open(mode="w", encoding="utf-8") as f:
             json.dump(self._target_dict, f, separators=(",", ":"))
 
     def delete_target(self, to_delete_key):
@@ -65,6 +67,6 @@ class BudgetTargets:
         self.save_targets()
 
         # add key of added target to categories
-        cat_list = cats.load_categories()
+        cat_list = cats.load_categories(TEST_DIR)
         if to_add_key not in cat_list:
-            cats.add_category(to_add_key)
+            cats.add_category(TEST_DIR, to_add_key)

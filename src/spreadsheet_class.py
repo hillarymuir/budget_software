@@ -7,9 +7,6 @@ Class for spreadsheet (which contains budget targets alongside budget expenditur
 
 """
 
-import log_class
-import budget_targets_class
-
 class Spreadsheet:
     """Class that holds a budget spreadsheet for one month."""
     def __init__(self, log_obj, targets_obj, starting_money):

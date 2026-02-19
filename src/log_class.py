@@ -8,14 +8,9 @@ Class for monthly log object.
 """
 
 import csv
-from pathlib import Path
 import log_entry_class as le_class
 
-# file path hardcoded relative to project root
-PROJECT_ROOT = Path(__file__).resolve().parents[1] 
-ENTRIES_DIR = PROJECT_ROOT / "private" / "entries"
-
-def get_log(file):
+def get_log(dir_path, file):
     """Update self._log_entries with contents of a particular log file and return"""
     log_entries = []
     with open(file, mode="r", encoding="utf-8") as csvfile:
@@ -29,11 +24,13 @@ def get_log(file):
                 raise ValueError(f"Error: either {row[0]} cannot be cast as int or {row[3]} cannot be cast as float") from e
             log_entries.append(new_entry)
 
-    return Log(log_entries=log_entries)
+    return Log(dir_path, log_entries=log_entries)
 
 class Log:
     """Class that holds monthly log of entries."""
-    def __init__(self, log_entries=None):
+    def __init__(self, dir_path, log_entries=None):
+
+        self.entries_dir = dir_path / "private" / "entries"
 
         # confirm that parameter is a list of log entry class instances or else empty
         if log_entries is None:
@@ -63,8 +60,8 @@ class Log:
 
         # handle creating/saving to file
         # make sure there is a ../private/entries
-        ENTRIES_DIR.mkdir(parents=True, exist_ok=True)
-        self.entries_file = ENTRIES_DIR / f"{self.name}.csv"
+        self.entries_dir.mkdir(parents=True, exist_ok=True)
+        self.entries_file = self.entries_dir / f"{self.name}.csv"
 
         # if that monthly log exists, print notice that it is being overwritten
         # TODO: prompt user to confirm overwrite
@@ -84,4 +81,4 @@ class Log:
             for entry in self._log_entries:
                 log_writer.writerow(str(entry).split(","))
 
-# add entry and set parent, delete entry, edit entry (but don't allow changing month)
+# TODO add entry and set parent, delete entry, edit entry (but don't allow changing month)

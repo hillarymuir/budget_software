@@ -8,10 +8,15 @@ Tests for functions in log_class.py.
 """
 
 import unittest
+from pathlib import Path
+
 import log_class
 import log_entry_class as le_class
 
-# TODO: change tests so running them won't modify actual user data
+# directory path hardcoded relative to project root
+PROJECT_ROOT = Path(__file__).resolve().parents[1] 
+TEST_DIR = PROJECT_ROOT / "test"
+LOG_DIR = TEST_DIR / "private" / "entries"
 
 class TestFunctions(unittest.TestCase):
     """Test log class and its functions"""
@@ -20,7 +25,7 @@ class TestFunctions(unittest.TestCase):
         """Test log class with one entry and ability to get_log that log"""
 
         le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
-        log_class_instance = log_class.Log([le_class_instance])
+        log_class_instance = log_class.Log(TEST_DIR, [le_class_instance])
 
         self.assertIsInstance(log_class_instance, log_class.Log)
         self.assertIsInstance(log_class_instance.get_log_entry_list(), list)
@@ -28,13 +33,13 @@ class TestFunctions(unittest.TestCase):
             self.assertIsInstance(entry, le_class.LogEntry)
 
         # check file-writing
-        with open(f"private/entries/{log_class_instance.name}.csv", mode="r", encoding="utf-8") as f:
+        with open(LOG_DIR / f"{log_class_instance.name}.csv", mode="r", encoding="utf-8") as f:
             file_content_str = f.read()
 
         self.assertEqual(file_content_str, "20260101,Source,Category,0.0\n")
 
         # test get_log() using the new log created above
-        log_from_file = log_class.get_log(f"private/entries/{log_class_instance.name}.csv")
+        log_from_file = log_class.get_log(LOG_DIR, LOG_DIR / f"{log_class_instance.name}.csv")
         self.assertIsInstance(log_from_file, log_class.Log)
         self.assertIsInstance(log_from_file.get_log_entry_list(), list)
         for entry in log_from_file.get_log_entry_list():
@@ -45,18 +50,18 @@ class TestFunctions(unittest.TestCase):
 
         le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
 
-        self.assertRaises(TypeError, log_class.Log, le_class_instance)
+        self.assertRaises(TypeError, log_class.Log, TEST_DIR, le_class_instance)
 
     def test_log_creation_empty(self):
         """Test creation of empty log class"""
 
-        log_class_instance = log_class.Log()
+        log_class_instance = log_class.Log(TEST_DIR)
 
         self.assertIsInstance(log_class_instance, log_class.Log)
         self.assertEqual(log_class_instance.get_log_entry_list(), [])
 
         # check file-writing
-        with open(f"private/entries/{log_class_instance.name}.csv", mode="r", encoding="utf-8") as f:
+        with open(LOG_DIR / f"{log_class_instance.name}.csv", mode="r", encoding="utf-8") as f:
             file_content_str = f.read()
 
         self.assertEqual(file_content_str, "")
@@ -66,7 +71,7 @@ class TestFunctions(unittest.TestCase):
 
         le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
 
-        self.assertRaises(TypeError, log_class.Log, [le_class_instance, 0])
+        self.assertRaises(TypeError, log_class.Log, TEST_DIR, [le_class_instance, 0])
 
     def test_log_creation_with_mixed_months(self):
         """Test creation of log class with different months"""
@@ -74,12 +79,12 @@ class TestFunctions(unittest.TestCase):
         le_class_instance1 = le_class.LogEntry(20260101, "Source", "Category", 0.0)
         le_class_instance2 = le_class.LogEntry(20260201, "Source", "Category", 0.0)
         
-        self.assertRaises(ValueError, log_class.Log, [le_class_instance1, le_class_instance2])
+        self.assertRaises(ValueError, log_class.Log, TEST_DIR, [le_class_instance1, le_class_instance2])
 
     def test_log_entry_parent(self):
         """Test LE parent-setting"""
 
         le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
-        log_class_instance = log_class.Log([le_class_instance])
+        log_class_instance = log_class.Log(TEST_DIR, [le_class_instance])
 
         self.assertIs(le_class_instance.parent, log_class_instance)

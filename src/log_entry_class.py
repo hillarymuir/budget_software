@@ -8,8 +8,13 @@ Class for monthly log object.
 """
 
 from datetime import date
+from pathlib import Path
 
 import category_handling as cats
+
+# directory path hardcoded relative to project root
+PROJECT_ROOT = Path(__file__).resolve().parents[1] 
+TEST_DIR = PROJECT_ROOT / "test"
 
 class LogEntry:
     """Class for a budget log entry."""
@@ -39,9 +44,9 @@ class LogEntry:
 
         self.parent = None
 
-        cat_list = cats.load_categories()
+        cat_list = cats.load_categories(TEST_DIR)
         if self.category not in cat_list:
-            cats.add_category(self.category)
+            cats.add_category(TEST_DIR, self.category)
 
         # TODO: add new category to budget targets with default target of 0
 
