@@ -8,6 +8,8 @@ Class for monthly log object.
 """
 
 import csv
+from pathlib import Path
+
 import log_entry_class as le_class
 
 def get_log(dir_path, file):
@@ -19,7 +21,7 @@ def get_log(dir_path, file):
             if len(row) != 4:
                 raise IndexError(f"Error: one or more rows has improper length such as {row}")
             try:
-                new_entry = le_class.LogEntry(int(row[0]), row[1], row[2], float(row[3]))
+                new_entry = le_class.LogEntry(dir_path, int(row[0]), row[1], row[2], float(row[3]))
             except ValueError as e:
                 raise ValueError(f"Error: either {row[0]} cannot be cast as int or {row[3]} cannot be cast as float") from e
             log_entries.append(new_entry)

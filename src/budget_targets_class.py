@@ -12,10 +12,6 @@ from pathlib import Path
 
 import category_handling as cats
 
-# directory path hardcoded relative to project root
-PROJECT_ROOT = Path(__file__).resolve().parents[1] 
-TEST_DIR = PROJECT_ROOT / "test"
-
 class BudgetTargets:
     """Class that holds budget target information."""
     def __init__(self, dir_path, target_dict=None):
@@ -24,12 +20,13 @@ class BudgetTargets:
         else:
             self._target_dict = target_dict
 
-        self.targets_dir = dir_path / "private" / "targets"
+        self.dir_path = dir_path
+        self.targets_dir = self.dir_path / "private" / "targets"
         self.targets_file = self.targets_dir / "curr_target.json"
 
         # add keys to category list
         for key in self._target_dict:
-            cats.add_category(TEST_DIR, key)
+            cats.add_category(dir_path, key)
 
         # make sure there is a ../private/targets
         self.targets_dir.mkdir(parents=True, exist_ok=True)
@@ -67,6 +64,6 @@ class BudgetTargets:
         self.save_targets()
 
         # add key of added target to categories
-        cat_list = cats.load_categories(TEST_DIR)
+        cat_list = cats.load_categories(self.dir_path)
         if to_add_key not in cat_list:
-            cats.add_category(TEST_DIR, to_add_key)
+            cats.add_category(self.dir_path, to_add_key)

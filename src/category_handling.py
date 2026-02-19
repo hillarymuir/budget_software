@@ -8,12 +8,13 @@ Functions related to handling budget category lists
 """
 
 import csv
+from pathlib import Path
 
 def load_categories(dir_path):
     """Load categories from file"""
     cat_list = []
 
-    with open(dir_path / "private" / "targets" / "curr_target.json", mode="r", encoding="utf-8") as csvfile:
+    with open(dir_path / "private" / "targets" / "categories.csv", mode="r", encoding="utf-8") as csvfile:
         cat_reader = csv.reader(csvfile)
         for row in cat_reader:
             cat_list.extend(row)
@@ -22,20 +23,20 @@ def load_categories(dir_path):
 
 def save_categories(dir_path, cat_list):
     """Save categories to file"""
-    with open(dir_path / "private" / "targets" / "curr_target.json", "w", encoding="utf-8", newline="") as csvfile:
+    with open(dir_path / "private" / "targets" / "categories.csv", "w", encoding="utf-8", newline="") as csvfile:
         cats_writer = csv.writer(csvfile)
         cats_writer.writerow(cat_list)
 
 def clear_categories(dir_path):
     """Clear categories to help testing"""
-    with open(dir_path / "private" / "targets" / "curr_target.json", "w", encoding="utf-8", newline="") as f:
+    with open(dir_path / "private" / "targets" / "categories.csv", "w", encoding="utf-8", newline="") as f:
         f.write("")
 
 def add_category(dir_path, category):
     """Add category to list"""
 
     cats_dir = dir_path / "private" / "targets"
-    cats_file = cats_dir / "curr_target.json"
+    cats_file = cats_dir / "categories.csv"
 
     # make sure there is a ../private/targets/categories.csv
     cats_dir.mkdir(parents=True, exist_ok=True)
@@ -54,7 +55,7 @@ def add_category(dir_path, category):
 def del_category(dir_path, category):
     """Delete category in list"""
 
-    cats_file = dir_path / "private" / "targets" / "curr_target.json"
+    cats_file = dir_path / "private" / "targets" / "categories.csv"
 
     # make sure file exists and category exists
     if not cats_file.exists():
@@ -72,7 +73,7 @@ def del_category(dir_path, category):
 def edit_category(dir_path, old_cat, new_cat):
     """Edit category in list"""
 
-    cats_file = dir_path / "private" / "targets" / "curr_target.json"
+    cats_file = dir_path / "private" / "targets" / "categories.csv"
 
     # make sure file exists and category exists
     if not cats_file.exists():

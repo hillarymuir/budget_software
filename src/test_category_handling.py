@@ -86,8 +86,8 @@ class TestFunctions(unittest.TestCase):
 
     def test_log_class_category_creation(self):
         """Test log class's automatic category addition"""
-        le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
-        log_class.Log([le_class_instance])
+        le_class_instance = le_class.LogEntry(TEST_DIR, 20260101, "Source", "Category", 0.0)
+        log_class.Log(TEST_DIR, [le_class_instance])
 
         cat_list = cats.load_categories(TEST_DIR)
         self.assertIn("Category", cat_list)

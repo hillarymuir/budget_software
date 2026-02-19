@@ -63,7 +63,7 @@ class TestFunctions(unittest.TestCase):
         """Test delete_target function of BT class with a key that does not exist"""
         bt_class_instance = bt_class.BudgetTargets(TEST_DIR, target_dict={"key": "value"})
 
-        self.assertRaises(KeyError, bt_class_instance.delete_target, TEST_DIR, "bad_key")
+        self.assertRaises(KeyError, bt_class_instance.delete_target, "bad_key")
 
     def test_bt_class_add(self):
         """Test add_or_change_target function of BT class for adding a target"""

@@ -25,7 +25,7 @@ class TestFunctions(unittest.TestCase):
     def test_spreadsheet_creation(self):
         """Test creation of spreadsheet class"""
         bt_class_instance = bt_class.BudgetTargets(TEST_DIR, {"Category": 50.0})
-        le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 1.11)
+        le_class_instance = le_class.LogEntry(TEST_DIR, 20260101, "Source", "Category", 1.11)
         log_class_instance = log_class.Log(TEST_DIR, [le_class_instance])
 
         spreadsheet = sheet_class.Spreadsheet(log_class_instance, bt_class_instance, 0.0)

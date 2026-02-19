@@ -24,7 +24,7 @@ class TestFunctions(unittest.TestCase):
     def test_log_creation_with_entry(self):
         """Test log class with one entry and ability to get_log that log"""
 
-        le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
+        le_class_instance = le_class.LogEntry(TEST_DIR, 20260101, "Source", "Category", 0.0)
         log_class_instance = log_class.Log(TEST_DIR, [le_class_instance])
 
         self.assertIsInstance(log_class_instance, log_class.Log)
@@ -39,7 +39,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(file_content_str, "20260101,Source,Category,0.0\n")
 
         # test get_log() using the new log created above
-        log_from_file = log_class.get_log(LOG_DIR, LOG_DIR / f"{log_class_instance.name}.csv")
+        log_from_file = log_class.get_log(TEST_DIR, LOG_DIR / f"{log_class_instance.name}.csv")
         self.assertIsInstance(log_from_file, log_class.Log)
         self.assertIsInstance(log_from_file.get_log_entry_list(), list)
         for entry in log_from_file.get_log_entry_list():
@@ -48,7 +48,7 @@ class TestFunctions(unittest.TestCase):
     def test_log_creation_with_bad_entry(self):
         """Test creation of log class with non-list entry"""
 
-        le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
+        le_class_instance = le_class.LogEntry(TEST_DIR, 20260101, "Source", "Category", 0.0)
 
         self.assertRaises(TypeError, log_class.Log, TEST_DIR, le_class_instance)
 
@@ -69,22 +69,22 @@ class TestFunctions(unittest.TestCase):
     def test_log_creation_with_mixed_entry_types(self):
         """Test creation of log class where not all arguments are entries"""
 
-        le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
+        le_class_instance = le_class.LogEntry(TEST_DIR, 20260101, "Source", "Category", 0.0)
 
         self.assertRaises(TypeError, log_class.Log, TEST_DIR, [le_class_instance, 0])
 
     def test_log_creation_with_mixed_months(self):
         """Test creation of log class with different months"""
 
-        le_class_instance1 = le_class.LogEntry(20260101, "Source", "Category", 0.0)
-        le_class_instance2 = le_class.LogEntry(20260201, "Source", "Category", 0.0)
+        le_class_instance1 = le_class.LogEntry(TEST_DIR, 20260101, "Source", "Category", 0.0)
+        le_class_instance2 = le_class.LogEntry(TEST_DIR, 20260201, "Source", "Category", 0.0)
         
         self.assertRaises(ValueError, log_class.Log, TEST_DIR, [le_class_instance1, le_class_instance2])
 
     def test_log_entry_parent(self):
         """Test LE parent-setting"""
 
-        le_class_instance = le_class.LogEntry(20260101, "Source", "Category", 0.0)
+        le_class_instance = le_class.LogEntry(TEST_DIR, 20260101, "Source", "Category", 0.0)
         log_class_instance = log_class.Log(TEST_DIR, [le_class_instance])
 
         self.assertIs(le_class_instance.parent, log_class_instance)
